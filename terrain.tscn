@@ -1,0 +1,23 @@
+[gd_scene load_steps=4 format=3 uid="uid://uejeih1mge6e"]
+
+[ext_resource type="Script" path="res://terrain.gd" id="1_nbsip"]
+[ext_resource type="PackedScene" path="res://hex_array.tscn" id="2_32n50"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_1dm3o"]
+size = Vector3(1, 0.1, 1)
+
+[node name="terrain" type="StaticBody3D"]
+disable_mode = 2
+script = ExtResource("1_nbsip")
+chunk_distance = 300
+
+[node name="Hex_Array" parent="." instance=ExtResource("2_32n50")]
+height_variation = 1.0
+uv_multiplier = 3.0
+
+[node name="Platform" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.000488281, 1.00002, 0.00925446)
+shape = SubResource("BoxShape3D_1dm3o")
+
+[connection signal="ready" from="Hex_Array" to="." method="_on_hex_array_ready"]
+[connection signal="shape_signal" from="Hex_Array" to="." method="_on_hex_array_shape_signal"]

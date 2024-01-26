@@ -1,0 +1,33 @@
+[gd_scene load_steps=4 format=3 uid="uid://uefifth6fr1o"]
+
+[ext_resource type="Script" path="res://terrain_test.gd" id="1_xsd5k"]
+[ext_resource type="PackedScene" path="res://player.tscn" id="2_8heks"]
+[ext_resource type="PackedScene" uid="uid://uejeih1mge6e" path="res://terrain.tscn" id="3_bouwu"]
+
+[node name="Terrain_Test" type="Node3D"]
+script = ExtResource("1_xsd5k")
+
+[node name="Player" parent="." instance=ExtResource("2_8heks")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 15.796, 0)
+
+[node name="Camera3D" type="Camera3D" parent="Player"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.515381, 0.322113)
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.328372, 0.944548, 0, -0.944548, 0.328372, -4.24987, 73.7393, 4.92985)
+light_energy = 0.4
+light_indirect_energy = 4.752
+
+[node name="terrain" parent="." instance=ExtResource("3_bouwu")]
+scale_modifier = 2.0
+chunk_distance = 60
+peak_modifier = 0.5
+
+[node name="Timer" type="Timer" parent="terrain"]
+wait_time = 0.25
+autostart = true
+
+[connection signal="player_position" from="." to="terrain" method="_on_terrain_test_player_position"]
+[connection signal="check_position" from="terrain" to="." method="_on_terrain_check_position"]
+[connection signal="terrain_made" from="terrain" to="." method="_on_terrain_terrain_made"]
+[connection signal="timeout" from="terrain/Timer" to="terrain" method="_on_timer_timeout"]

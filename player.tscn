@@ -1,0 +1,13 @@
+[gd_scene load_steps=3 format=3 uid="uid://f207abs4nvfa"]
+
+[ext_resource type="Script" path="res://Player.gd" id="1_gyk4g"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_e26jc"]
+
+[node name="Player" type="CharacterBody3D"]
+axis_lock_angular_x = true
+axis_lock_angular_y = true
+script = ExtResource("1_gyk4g")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("CapsuleShape3D_e26jc")
