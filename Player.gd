@@ -42,10 +42,6 @@ func _physics_process(delta):
 		position = Vector3(0, 2, 0)
 		
 	move_and_slide()	
-	
-	if Input.is_action_just_released("teleport"):
-		position = globals.teleport()
-		print("teleport player position: ", position)
 		
 		
 

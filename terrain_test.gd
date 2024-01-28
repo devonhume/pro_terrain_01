@@ -19,8 +19,7 @@ func _process(_delta):
 
 func _on_terrain_terrain_made():
 	
-	#print_tree()
-	print("+-----------------------------------------------------------+")
+	pass
 
 
 func _on_terrain_check_position():

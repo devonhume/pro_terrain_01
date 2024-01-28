@@ -20,7 +20,7 @@ light_indirect_energy = 4.752
 
 [node name="terrain" parent="." instance=ExtResource("3_bouwu")]
 scale_modifier = 2.0
-chunk_distance = 60
+chunk_distance = 150
 peak_modifier = 0.5
 
 [node name="Timer" type="Timer" parent="terrain"]
