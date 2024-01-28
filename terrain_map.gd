@@ -8,6 +8,10 @@ var terrain_map = []
 var chunk_list = []
 var tracker = 0
 
+var pointer = preload("res://pointer.tscn")
+var pointers = []
+
+
 func _init(xmax, zmax, mesh_size):
 	print("terrain_map init, xmax: ", xmax, ", zmax: ", zmax)
 	x_max = xmax
@@ -17,35 +21,67 @@ func _init(xmax, zmax, mesh_size):
 	terrain_map[0].append(TerrainChunk.new(Vector3(0, 0 ,0), Vector2(0, 0), self))
 	chunk_list.append([Vector3(0, 0, 0), Vector2(0, 0)])
 	
-func print_chunks():
+func print_chunks(node):
+	var data_tool = MeshDataTool.new()
 	for chunk in chunk_list:
 		if chunk[1][0] > 1 and chunk[1][0] < 3:
 			if chunk[1][1] > chunk[1][0] * 7 or chunk[1][1] < chunk[1][0]:
-				print("Tier: ", chunk[1][0], ", Chunk: ", chunk[1][1], ", Origin: ", chunk[0], ", ", chunk[1])
-				var edges = terrain_map[chunk[1][0]][chunk[1][1]].edges# get_edges(chunk[1])
-				# print("edges: ", edges)
-				var north_edges = []
-				var south_edges = []
-				var east_edges = []
-				var west_edges = []
-				if edges:
-					if edges[0]:
-						for n_vert in edges[0]:
-							north_edges.append(snapped(n_vert[1], 0.001))
-					if edges[1]:
-						for s_vert in edges[1]:
-							south_edges.append(snapped(s_vert[1], 0.001))
-					if edges[2]:
-						for e_vert in edges[2]:
-							east_edges.append(snapped(e_vert[1], 0.001))
-					if edges[3]:
-						for w_vert in edges[3]:
-							west_edges.append(snapped(w_vert[1], 0.001))
-				print("north: ", north_edges)
-				print("south: ", south_edges)
-				print("east: ", east_edges)
-				print("west: ", west_edges)
+				var current_node = node.get_node(terrain_map[chunk[1][0]][chunk[1][1]].chunk_name)
+				var node_children = current_node.get_children()
+				# print(current_node)
+				# print("children: ", node_children)
+				# print("mesh: ", node_children[0].mesh)
+				data_tool.create_from_surface(node_children[0].mesh, 0)
+				print("Tier: ", chunk[1][0], ", Chunk: ", chunk[1][1], ", Origin: ", chunk[0], ", ", chunk[1], ", name: ", terrain_map[chunk[1][0]][chunk[1][1]].chunk_name)
+				var mesh_edges = get_mesh_edges(data_tool)
+				# print("mesh: ", node_children[0].mesh)
+				# print("vertex_count: ", data_tool.get_vertex_count())
+				# print("mesh_edges: ", mesh_edges)
+				var c_edges = terrain_map[chunk[1][0]][chunk[1][1]].edges
+				var chunk_edges = extract_heights(c_edges)
+				var neighbor_edges = extract_heights(get_edges(chunk[1]))
+				var leftovers = [[], []]
+				# print("chunk north: ", chunk_edges[0])
+				# print("neigh north: ", neighbor_edges[0])
+				# print("chunk south: ", chunk_edges[1])
+				# print("neigh south: ", neighbor_edges[1])
+				
+				if chunk[1][1] < 2 or chunk[1][1] == 15:
+				
+					for n_vert in c_edges[0]:
+					#	if n_vert not in mesh_edges:
+					#		leftovers[0].append(n_vert)
+						var n_edge_pointer = pointer.instantiate()
+						n_edge_pointer.set_position(n_vert)
+						current_node.add_child(n_edge_pointer)
+						pointers.append(n_edge_pointer)
+					
+					for s_vert in c_edges[1]:
+					#	if s_vert not in mesh_edges:
+					#		leftovers[1].append(s_vert)
+						var s_edge_pointer = pointer.instantiate()
+						s_edge_pointer.set_position(s_vert)
+						current_node.add_child(s_edge_pointer)
+						pointers.append(s_edge_pointer)
+						
+				# var pointer_positions = []
+				# for pointer in pointers:
+					# pointer_positions.append(pointer.position)
+				# print(pointer_positions)
+				
+				# print("leftovers north: ", leftovers[0])
+				# print("leftovers south: ", leftovers[1])
+				
+				var globals = current_node.get_node("/root/Globals")
+				globals.pointers = pointers.duplicate()
+				
 				print(get_edges(chunk[1], true))
+				
+func get_mesh_edges(mesh):
+	var vertices = []
+	for i in range(mesh.get_vertex_count()):
+		vertices.append(snapped(mesh.get_vertex(i)[1], 0.001))
+	return vertices
 	
 func activate_chunk(position, name, edges):
 	
@@ -437,6 +473,19 @@ func get_linked_verts(position, vert):
 	# print("position: ", position, ", vert: ", vert)
 	
 	return  terrain_map[position[0]][position[1]].get_linked_verts(vert)
+	
+	
+func extract_heights(edges):
+	
+	var return_edges = []
+	
+	for edge in range(0, 4):
+		return_edges.append([])
+		if edges[edge]:
+			for vert in edges[edge]:
+				return_edges[edge].append(snapped(vert[1], 0.001))
+			
+	return return_edges
 	
 class Vert:
 	

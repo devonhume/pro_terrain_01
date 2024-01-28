@@ -9,7 +9,6 @@ size = Vector3(1, 0.1, 1)
 [node name="terrain" type="StaticBody3D"]
 disable_mode = 2
 script = ExtResource("1_nbsip")
-chunk_distance = 300
 
 [node name="Hex_Array" parent="." instance=ExtResource("2_32n50")]
 height_variation = 1.0

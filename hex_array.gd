@@ -318,21 +318,21 @@ func make_hex_grid(chunk, edges, peak_density, peak_modifier, terrain_map):
 			edge_verts[3].append(mountain_array[r_vert])
 			
 	
-	if current_chunk[0] == 2 :
-		if current_chunk[1] == 15 or current_chunk[1] < 2:
-			var passed_edges = extract_heights(edges)
-			var new_edges = extract_heights(edge_verts)
-			print("+ - + ---+ chunk 2,", current_chunk[1])
-			# print("edges north: ", edges[0])
-			print("pass north: ", passed_edges[0])
-			# print("edge_verts north: ", edge_verts[0])
-			print("new north: ", new_edges[0])
-			# print("edges south: ", edges[1])
-			print("pass south: ", passed_edges[1])
-			# print("edge_verts south: ", edge_verts[1])
-			print("new south: ", new_edges[1])
-			# print("top: ", top)
-			# print("bottom: ", bottom)
+	#if current_chunk[0] == 2 :
+	#	if current_chunk[1] == 15 or current_chunk[1] < 2:
+	#		var passed_edges = extract_heights(edges)
+	#		var new_edges = extract_heights(edge_verts)
+	#		print("+ - + ---+ chunk 2,", current_chunk[1])
+	#		# print("edges north: ", edges[0])
+	#		print("pass north: ", passed_edges[0])
+	#		# print("edge_verts north: ", edge_verts[0])
+	#		print("new north: ", new_edges[0])
+	#		# print("edges south: ", edges[1])
+	#		print("pass south: ", passed_edges[1])
+	#		# print("edge_verts south: ", edge_verts[1])
+	#		print("new south: ", new_edges[1])
+	#		# print("top: ", top)
+	#		# print("bottom: ", bottom)
 		
 	var return_array = []
 	

@@ -3,6 +3,7 @@ extends CharacterBody3D
 @export var mouse_sensitivity = 0.002
 
 @onready var camera = get_node("Camera3D")
+@onready var globals = get_node("/root/Globals")
 
 const SPEED = 5.0
 const JUMP_VELOCITY = 4.5
@@ -40,7 +41,13 @@ func _physics_process(delta):
 	if position.y < -2:
 		position = Vector3(0, 2, 0)
 		
-	move_and_slide()
+	move_and_slide()	
+	
+	if Input.is_action_just_released("teleport"):
+		position = globals.teleport()
+		print("teleport player position: ", position)
+		
+		
 
 func _unhandled_input(event):
 	if event is InputEventMouseMotion and Input.is_action_pressed("look"):

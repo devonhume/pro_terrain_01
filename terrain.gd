@@ -4,8 +4,11 @@ var TerrainMap = load("res://terrain_map.gd")
 
 # @onready var col_node_shape = get_node("CollisionShape3D")
 @onready var hex_array = get_node("Hex_Array")
+@onready var player = get_node("Player")
 
 var gems_mat = preload("res://assets/materials/gems.tres")
+var gray_mat = preload("res://assets/materials/gray.tres")
+var blue_mat = preload("res://assets/materials/blue.tres")
 
 @export var mesh_size = 4
 @export var scale_modifier = 1.0
@@ -17,6 +20,8 @@ var x_offset = (mesh_size * 3 * scale_modifier)
 var z_offset = make_z_offset(mesh_size, scale_modifier)
 
 var terrain_map
+
+var player_position = null
 
 var isready = false
 var checking = false
@@ -40,6 +45,16 @@ func _ready():
 	# print("coll_shape: ", coll_shape)
 	# col_node_shape.shape = stand_verts
 	
+func _process(delta):
+	if Input.is_action_just_released("forward"):
+	
+		if terrain_map and player_position:
+			for pointer in terrain_map.pointers:
+				# if player_position.distance_to(pointer.position) < 1:
+				#	print("pointer position: ", pointer.position)
+				print(player_position.distance_to(pointer.position))
+				
+
 
 func _on_hex_array_ready():
 	
@@ -115,7 +130,9 @@ func _on_hex_array_shape_signal(arr_mesh, offset, edges):
 	#	var mesh_node = get_node(node_name)
 	#	print(node_name, ".position: ", mesh_node.position)
 
-func _on_terrain_test_player_position(player_position):
+func _on_terrain_test_player_position(plyer_position):
+		
+	player_position = plyer_position
 	
 	if not checking and not making:
 		
@@ -181,12 +198,17 @@ func _on_timer_timeout():
 
 func print_chunks():
 	
-	var spec_chunk = get_node("Hex_Stat9/Hex_Mesh9")
-	
-	spec_chunk.set_surface_override_material(0, gems_mat)
+	var gem_chunk = get_node("Hex_Stat9/Hex_Mesh9")	
+	gem_chunk.set_surface_override_material(0, gems_mat)
+	var gray_chunk = get_node("Hex_Stat10/Hex_Mesh10")	
+	gray_chunk.set_surface_override_material(0, gray_mat)
+	var blue_chunk = get_node("Hex_Stat11/Hex_Mesh11")	
+	blue_chunk.set_surface_override_material(0, blue_mat)
 	
 	# print(spec_chunk)
 	
 	# print_tree()
 	
-	terrain_map.print_chunks()
+	terrain_map.print_chunks(self)
+	
+
