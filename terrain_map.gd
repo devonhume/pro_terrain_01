@@ -304,8 +304,6 @@ func convert_map_coords(coords, _position):
 		
 	var result = Vector2(m, index)
 	
-	print("Coords: ", coords, " Result: ", result)
-	
 	return result
 	
 func get_linked_verts(position, vert):
@@ -395,8 +393,6 @@ class VertMap:
 				
 	func make_mountains(peak_density, peak_modifier):
 		
-		print("VertMap.make_mountains")
-		
 		var new_peaks = [] 
 		
 		for vert in verts:
@@ -404,8 +400,6 @@ class VertMap:
 			var peak_chance = rand_gen.randi() % 100
 			if peak_chance <= peak_density:
 				vert.is_peak = true
-				
-		print("vertice number: ", len(verts))
 				
 		var fill_inc = 1
 		
