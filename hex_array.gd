@@ -5,7 +5,9 @@ extends MeshInstance3D
 @export var height_variation:float = 0.4
 @export var uv_multiplier:float = 4.0
 
-@export var curve_a:float = 0.001
+@export var curve_a:float = 20.0
+@export var curve_b:float = 100.0
+@export var curve_c:float = 10.0
 
 var ground_mat = preload("res://assets/materials/forest_floor.tres")
 var dirt_mat = preload("res://assets/materials/dirt.tres")
@@ -293,12 +295,8 @@ func apply_curve(point):
 	
 	var e = 2.718282
 	
-	var a = 20
-	var b = 100
-	var c = 10
-	
 	var neg_one = 1 - 2
-	var curve = a * (e**(neg_one * ((distance - b)**2) / (2 * (c**2))))
+	var curve = curve_a * (e**(neg_one * ((distance - curve_b)**2) / (2 * (curve_c**2))))
 	
 	return curve + randf_range(0, height_variation) + (curve * randf_range(0, height_variation) * 0.3)
 	

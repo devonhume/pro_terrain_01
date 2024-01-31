@@ -3,7 +3,6 @@ extends StaticBody3D
 var TerrainMap = load("res://terrain_map.gd")
 
 @onready var hex_array = get_node("Hex_Array")
-@onready var player = get_node("Player")
 
 var gems_mat = preload("res://assets/materials/gems.tres")
 var gray_mat = preload("res://assets/materials/gray.tres")
@@ -13,7 +12,17 @@ var blue_mat = preload("res://assets/materials/blue.tres")
 @export var scale_modifier = 1.0
 @export var chunk_distance = 100
 @export var peak_density = 2
-@export var peak_modifier = 4.0
+@export var peak_scale = 5
+var peak_modifier = peak_scale * 0.1
+
+@export var ridge_height:float = 20.0
+@export var ridge_distance:float = 100.0
+@export var ridge_width:float = 10.0
+
+var flying_mode = false
+var reset_mode = false
+
+var ORIGIN = Vector3(0, 0, 0)
 
 var x_offset = (mesh_size * 3 * scale_modifier)
 var z_offset = make_z_offset(mesh_size, scale_modifier)
@@ -32,6 +41,11 @@ signal check_position
 func _ready():
 	
 	pass 
+	
+func _process(delta):
+	
+	if reset_mode and not checking and not making:
+		_on_terrain_test_player_position(ORIGIN)
 
 func _on_hex_array_ready():
 	
@@ -70,9 +84,11 @@ func _on_hex_array_shape_signal(arr_mesh, offset, edges):
 	making = false
 	
 	terrain_made.emit()
+	
+	check_position.emit()
 
 func _on_terrain_test_player_position(plyer_position):
-		
+	
 	player_position = plyer_position
 	
 	if not checking and not making:
@@ -83,19 +99,21 @@ func _on_terrain_test_player_position(plyer_position):
 			x_offset = (mesh_size * 3 * scale_modifier)
 			z_offset = make_z_offset(mesh_size, scale_modifier)
 			
-			print("x_offset: ", x_offset, ", z_offset: ", z_offset, ", mesh_size: ", mesh_size, " hex_array.size: ", hex_array.size)
-			
 			terrain_map = TerrainMap.new(x_offset, z_offset, mesh_size)
 			
 			isready = true
 	
 		var all_chunks = terrain_map.get_all_chunks()
 		
+		var activated_chunks = 0
+		
 		for chunk in range(0, len(all_chunks)):
 			
 			var distance = player_position.distance_to(all_chunks[chunk][0])
 			
 			if distance < chunk_distance and not terrain_map.get_status(all_chunks[chunk][1]):
+				
+				activated_chunks += 1
 				
 				making = true
 				
@@ -105,7 +123,11 @@ func _on_terrain_test_player_position(plyer_position):
 				hex_array.size = mesh_size
 				hex_array.build_scale = scale_modifier
 				hex_array.position = all_chunks[chunk][0]
+				hex_array.curve_a = ridge_height
+				hex_array.curve_b = ridge_distance
+				hex_array.curve_c = ridge_width
 				hex_array.make_mesh(all_chunks[chunk], edges, peak_density, peak_modifier, terrain_map)
+				
 				
 		checking = false
 		
@@ -118,6 +140,30 @@ func make_z_offset(size, mesh_scale):
 
 func _on_timer_timeout():
 	
-	check_position.emit()
+	if not reset_mode:
+		check_position.emit()
 	
+func reset():
+	var children = get_children()
+	for child in range(0, len(children) - 3):
+		var hex_child = str("Hex_Stat", child)
+		var free_child = get_node(hex_child)
+		free_child.free()	
+		
+	mesh_size = Globals.mesh_size
+	scale_modifier = Globals.scale_modifier
+	chunk_distance = Globals.chunk_distance
+	peak_density = Globals.peak_density
+	peak_scale = Globals.peak_scale
 
+	ridge_height = Globals.ridge_height
+	ridge_distance = Globals.ridge_distance
+	ridge_width = Globals.ridge_width
+	
+	x_offset = (mesh_size * 3 * scale_modifier)
+	z_offset = make_z_offset(mesh_size, scale_modifier)
+	terrain_map.reset(x_offset, z_offset, mesh_size)
+	
+	reset_mode = true
+	
+	_on_terrain_test_player_position(ORIGIN)

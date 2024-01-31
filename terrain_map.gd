@@ -8,10 +8,6 @@ var terrain_map = []
 var chunk_list = []
 var tracker = 0
 
-var pointer = preload("res://pointer.tscn")
-var pointers = []
-
-
 func _init(xmax, zmax, mesh_size):
 	x_max = xmax
 	z_max = zmax
@@ -309,6 +305,18 @@ func convert_map_coords(coords, _position):
 func get_linked_verts(position, vert):
 	
 	return  terrain_map[position[0]][position[1]].get_linked_verts(vert)
+	
+func reset(xmax, zmax, mesh_size):
+	
+	x_max = xmax
+	z_max = zmax
+	size = mesh_size
+	terrain_map = []
+	chunk_list = []
+	tracker = 0
+	terrain_map.append([])
+	terrain_map[0].append(TerrainChunk.new(Vector3(0, 0 ,0), Vector2(0, 0), self))
+	chunk_list.append([Vector3(0, 0, 0), Vector2(0, 0)])
 	
 class Vert:
 	
