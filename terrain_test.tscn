@@ -1,9 +1,10 @@
-[gd_scene load_steps=15 format=3 uid="uid://uefifth6fr1o"]
+[gd_scene load_steps=17 format=3 uid="uid://uefifth6fr1o"]
 
 [ext_resource type="Script" path="res://terrain_test.gd" id="1_xsd5k"]
 [ext_resource type="PackedScene" uid="uid://bcwf0g15825rg" path="res://player.tscn" id="2_8heks"]
 [ext_resource type="PackedScene" uid="uid://uejeih1mge6e" path="res://terrain.tscn" id="3_bouwu"]
 [ext_resource type="Material" uid="uid://jrqg4klf3dht" path="res://assets/panorama/sky_panorama.tres" id="3_s7b1k"]
+[ext_resource type="Script" path="res://Terrain CanvasLayer.gd" id="5_5qpm5"]
 [ext_resource type="Script" path="res://MeshSizeInput.gd" id="5_fk1kg"]
 [ext_resource type="Script" path="res://ScaleModInput.gd" id="6_gyluk"]
 [ext_resource type="Script" path="res://ChunkDistInput.gd" id="7_3xfl5"]
@@ -12,6 +13,7 @@
 [ext_resource type="Script" path="res://RidgeHeightInput.gd" id="10_lsh5h"]
 [ext_resource type="Script" path="res://RidgeDistInput.gd" id="11_ixndb"]
 [ext_resource type="Script" path="res://RidgeWidthInput.gd" id="12_6exeh"]
+[ext_resource type="Script" path="res://Flying Button.gd" id="13_brw2l"]
 
 [sub_resource type="Sky" id="Sky_487rm"]
 sky_material = ExtResource("3_s7b1k")
@@ -45,9 +47,10 @@ chunk_distance = 20
 wait_time = 0.25
 autostart = true
 
-[node name="CanvasLayer" type="CanvasLayer" parent="."]
+[node name="Terrain CanvasLayer" type="CanvasLayer" parent="."]
+script = ExtResource("5_5qpm5")
 
-[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer"]
+[node name="MarginContainer" type="MarginContainer" parent="Terrain CanvasLayer"]
 anchors_preset = 3
 anchor_left = 1.0
 anchor_top = 1.0
@@ -60,18 +63,18 @@ offset_bottom = -10.0
 grow_horizontal = 0
 grow_vertical = 0
 
-[node name="GridContainer" type="GridContainer" parent="CanvasLayer/MarginContainer"]
+[node name="GridContainer" type="GridContainer" parent="Terrain CanvasLayer/MarginContainer"]
 layout_mode = 2
 
-[node name="MeshSizeContainer" type="HSplitContainer" parent="CanvasLayer/MarginContainer/GridContainer"]
+[node name="MeshSizeContainer" type="HSplitContainer" parent="Terrain CanvasLayer/MarginContainer/GridContainer"]
 layout_mode = 2
 split_offset = 120
 
-[node name="MeshSizeLabel" type="Label" parent="CanvasLayer/MarginContainer/GridContainer/MeshSizeContainer"]
+[node name="MeshSizeLabel" type="Label" parent="Terrain CanvasLayer/MarginContainer/GridContainer/MeshSizeContainer"]
 layout_mode = 2
 text = "Mesh Size"
 
-[node name="MeshSizeInput" type="SpinBox" parent="CanvasLayer/MarginContainer/GridContainer/MeshSizeContainer"]
+[node name="MeshSizeInput" type="SpinBox" parent="Terrain CanvasLayer/MarginContainer/GridContainer/MeshSizeContainer"]
 layout_mode = 2
 min_value = 4.0
 max_value = 10.0
@@ -80,128 +83,136 @@ update_on_text_changed = true
 select_all_on_focus = true
 script = ExtResource("5_fk1kg")
 
-[node name="ScaleModContainer" type="HSplitContainer" parent="CanvasLayer/MarginContainer/GridContainer"]
+[node name="ScaleModContainer" type="HSplitContainer" parent="Terrain CanvasLayer/MarginContainer/GridContainer"]
 layout_mode = 2
 split_offset = 120
 
-[node name="ScaleModLabel" type="Label" parent="CanvasLayer/MarginContainer/GridContainer/ScaleModContainer"]
+[node name="ScaleModLabel" type="Label" parent="Terrain CanvasLayer/MarginContainer/GridContainer/ScaleModContainer"]
 layout_mode = 2
 text = "Scale Modifier"
 
-[node name="ScaleModInput" type="LineEdit" parent="CanvasLayer/MarginContainer/GridContainer/ScaleModContainer"]
+[node name="ScaleModInput" type="LineEdit" parent="Terrain CanvasLayer/MarginContainer/GridContainer/ScaleModContainer"]
 layout_mode = 2
 focus_mode = 1
 text = "1.0"
 script = ExtResource("6_gyluk")
 
-[node name="ChunkDistContainer" type="HSplitContainer" parent="CanvasLayer/MarginContainer/GridContainer"]
+[node name="ChunkDistContainer" type="HSplitContainer" parent="Terrain CanvasLayer/MarginContainer/GridContainer"]
 layout_mode = 2
 split_offset = 120
 
-[node name="ChunkDistLabel" type="Label" parent="CanvasLayer/MarginContainer/GridContainer/ChunkDistContainer"]
+[node name="ChunkDistLabel" type="Label" parent="Terrain CanvasLayer/MarginContainer/GridContainer/ChunkDistContainer"]
 layout_mode = 2
 text = "Chunk Distance"
 
-[node name="ChunkDistInput" type="SpinBox" parent="CanvasLayer/MarginContainer/GridContainer/ChunkDistContainer"]
+[node name="ChunkDistInput" type="SpinBox" parent="Terrain CanvasLayer/MarginContainer/GridContainer/ChunkDistContainer"]
 layout_mode = 2
 min_value = 5.0
 max_value = 500.0
 step = 5.0
-value = 100.0
+value = 5.0
 script = ExtResource("7_3xfl5")
 
-[node name="PeakDensityContainer" type="HSplitContainer" parent="CanvasLayer/MarginContainer/GridContainer"]
+[node name="PeakDensityContainer" type="HSplitContainer" parent="Terrain CanvasLayer/MarginContainer/GridContainer"]
 layout_mode = 2
 split_offset = 120
 
-[node name="PeakDensityLabel" type="Label" parent="CanvasLayer/MarginContainer/GridContainer/PeakDensityContainer"]
+[node name="PeakDensityLabel" type="Label" parent="Terrain CanvasLayer/MarginContainer/GridContainer/PeakDensityContainer"]
 layout_mode = 2
 text = "Peak Density"
 
-[node name="PeakDensityInput" type="SpinBox" parent="CanvasLayer/MarginContainer/GridContainer/PeakDensityContainer"]
+[node name="PeakDensityInput" type="SpinBox" parent="Terrain CanvasLayer/MarginContainer/GridContainer/PeakDensityContainer"]
 layout_mode = 2
 min_value = 1.0
 max_value = 10.0
 value = 2.0
 script = ExtResource("8_6u5m2")
 
-[node name="PeakScaleContainer" type="HSplitContainer" parent="CanvasLayer/MarginContainer/GridContainer"]
+[node name="PeakScaleContainer" type="HSplitContainer" parent="Terrain CanvasLayer/MarginContainer/GridContainer"]
 layout_mode = 2
 split_offset = 120
 
-[node name="PeakScaleLabel" type="Label" parent="CanvasLayer/MarginContainer/GridContainer/PeakScaleContainer"]
+[node name="PeakScaleLabel" type="Label" parent="Terrain CanvasLayer/MarginContainer/GridContainer/PeakScaleContainer"]
 layout_mode = 2
 text = "Peak Scale"
 
-[node name="PeakScaleInput" type="SpinBox" parent="CanvasLayer/MarginContainer/GridContainer/PeakScaleContainer"]
+[node name="PeakScaleInput" type="SpinBox" parent="Terrain CanvasLayer/MarginContainer/GridContainer/PeakScaleContainer"]
 layout_mode = 2
 max_value = 20.0
 value = 5.0
 script = ExtResource("9_fxqxo")
 
-[node name="RidgeHeightContainer" type="HSplitContainer" parent="CanvasLayer/MarginContainer/GridContainer"]
+[node name="RidgeHeightContainer" type="HSplitContainer" parent="Terrain CanvasLayer/MarginContainer/GridContainer"]
 layout_mode = 2
 split_offset = 120
 
-[node name="RidgeHeightLabel" type="Label" parent="CanvasLayer/MarginContainer/GridContainer/RidgeHeightContainer"]
+[node name="RidgeHeightLabel" type="Label" parent="Terrain CanvasLayer/MarginContainer/GridContainer/RidgeHeightContainer"]
 layout_mode = 2
 text = "Ridge Height"
 
-[node name="RidgeHeightInput" type="LineEdit" parent="CanvasLayer/MarginContainer/GridContainer/RidgeHeightContainer"]
+[node name="RidgeHeightInput" type="LineEdit" parent="Terrain CanvasLayer/MarginContainer/GridContainer/RidgeHeightContainer"]
 layout_mode = 2
 focus_mode = 1
 text = "20.0"
 script = ExtResource("10_lsh5h")
 
-[node name="RidgeDistContainer" type="HSplitContainer" parent="CanvasLayer/MarginContainer/GridContainer"]
+[node name="RidgeDistContainer" type="HSplitContainer" parent="Terrain CanvasLayer/MarginContainer/GridContainer"]
 layout_mode = 2
 split_offset = 120
 
-[node name="RidgeDistLabel" type="Label" parent="CanvasLayer/MarginContainer/GridContainer/RidgeDistContainer"]
+[node name="RidgeDistLabel" type="Label" parent="Terrain CanvasLayer/MarginContainer/GridContainer/RidgeDistContainer"]
 layout_mode = 2
 text = "Ridge Distance"
 
-[node name="RidgeDistInput" type="LineEdit" parent="CanvasLayer/MarginContainer/GridContainer/RidgeDistContainer"]
+[node name="RidgeDistInput" type="LineEdit" parent="Terrain CanvasLayer/MarginContainer/GridContainer/RidgeDistContainer"]
 layout_mode = 2
 focus_mode = 1
 text = "100.0"
 script = ExtResource("11_ixndb")
 
-[node name="RidgeWidthContainer" type="HSplitContainer" parent="CanvasLayer/MarginContainer/GridContainer"]
+[node name="RidgeWidthContainer" type="HSplitContainer" parent="Terrain CanvasLayer/MarginContainer/GridContainer"]
 layout_mode = 2
 split_offset = 120
 
-[node name="RidgeWidthLabel" type="Label" parent="CanvasLayer/MarginContainer/GridContainer/RidgeWidthContainer"]
+[node name="RidgeWidthLabel" type="Label" parent="Terrain CanvasLayer/MarginContainer/GridContainer/RidgeWidthContainer"]
 layout_mode = 2
 text = "Ridge Width"
 
-[node name="RidgeWidthInput" type="LineEdit" parent="CanvasLayer/MarginContainer/GridContainer/RidgeWidthContainer"]
+[node name="RidgeWidthInput" type="LineEdit" parent="Terrain CanvasLayer/MarginContainer/GridContainer/RidgeWidthContainer"]
 layout_mode = 2
 focus_mode = 1
 text = "10.0"
 script = ExtResource("12_6exeh")
 
-[node name="Flying Button" type="Button" parent="CanvasLayer/MarginContainer/GridContainer"]
+[node name="Flying Button" type="Button" parent="Terrain CanvasLayer/MarginContainer/GridContainer"]
 layout_mode = 2
 focus_mode = 0
 text = "Fly"
+script = ExtResource("13_brw2l")
 
-[node name="Reset Button" type="Button" parent="CanvasLayer/MarginContainer/GridContainer"]
+[node name="Reset Button" type="Button" parent="Terrain CanvasLayer/MarginContainer/GridContainer"]
 layout_mode = 2
 focus_mode = 0
 text = "Reset Terrain"
 
+[node name="Origin Button" type="Button" parent="Terrain CanvasLayer/MarginContainer/GridContainer"]
+layout_mode = 2
+text = "Origin"
+
+[connection signal="flying" from="." to="Terrain CanvasLayer/MarginContainer/GridContainer/Flying Button" method="_on_terrain_test_flying"]
+[connection signal="hide_ui" from="." to="Terrain CanvasLayer" method="_on_terrain_test_hide_ui"]
 [connection signal="player_position" from="." to="terrain" method="_on_terrain_test_player_position"]
 [connection signal="check_position" from="terrain" to="." method="_on_terrain_check_position"]
 [connection signal="terrain_made" from="terrain" to="." method="_on_terrain_terrain_made"]
 [connection signal="timeout" from="terrain/Timer" to="terrain" method="_on_timer_timeout"]
-[connection signal="value_changed" from="CanvasLayer/MarginContainer/GridContainer/MeshSizeContainer/MeshSizeInput" to="CanvasLayer/MarginContainer/GridContainer/MeshSizeContainer/MeshSizeInput" method="_on_value_changed"]
-[connection signal="text_submitted" from="CanvasLayer/MarginContainer/GridContainer/ScaleModContainer/ScaleModInput" to="CanvasLayer/MarginContainer/GridContainer/ScaleModContainer/ScaleModInput" method="_on_text_submitted"]
-[connection signal="value_changed" from="CanvasLayer/MarginContainer/GridContainer/ChunkDistContainer/ChunkDistInput" to="CanvasLayer/MarginContainer/GridContainer/ChunkDistContainer/ChunkDistInput" method="_on_value_changed"]
-[connection signal="value_changed" from="CanvasLayer/MarginContainer/GridContainer/PeakDensityContainer/PeakDensityInput" to="CanvasLayer/MarginContainer/GridContainer/PeakDensityContainer/PeakDensityInput" method="_on_value_changed"]
-[connection signal="value_changed" from="CanvasLayer/MarginContainer/GridContainer/PeakScaleContainer/PeakScaleInput" to="CanvasLayer/MarginContainer/GridContainer/PeakScaleContainer/PeakScaleInput" method="_on_value_changed"]
-[connection signal="text_submitted" from="CanvasLayer/MarginContainer/GridContainer/RidgeHeightContainer/RidgeHeightInput" to="CanvasLayer/MarginContainer/GridContainer/RidgeHeightContainer/RidgeHeightInput" method="_on_text_submitted"]
-[connection signal="text_submitted" from="CanvasLayer/MarginContainer/GridContainer/RidgeDistContainer/RidgeDistInput" to="CanvasLayer/MarginContainer/GridContainer/RidgeDistContainer/RidgeDistInput" method="_on_text_submitted"]
-[connection signal="text_submitted" from="CanvasLayer/MarginContainer/GridContainer/RidgeWidthContainer/RidgeWidthInput" to="CanvasLayer/MarginContainer/GridContainer/RidgeWidthContainer/RidgeWidthInput" method="_on_text_submitted"]
-[connection signal="pressed" from="CanvasLayer/MarginContainer/GridContainer/Flying Button" to="." method="_on_flying_button_pressed"]
-[connection signal="pressed" from="CanvasLayer/MarginContainer/GridContainer/Reset Button" to="." method="_on_reset_button_pressed"]
+[connection signal="value_changed" from="Terrain CanvasLayer/MarginContainer/GridContainer/MeshSizeContainer/MeshSizeInput" to="Terrain CanvasLayer/MarginContainer/GridContainer/MeshSizeContainer/MeshSizeInput" method="_on_value_changed"]
+[connection signal="text_submitted" from="Terrain CanvasLayer/MarginContainer/GridContainer/ScaleModContainer/ScaleModInput" to="Terrain CanvasLayer/MarginContainer/GridContainer/ScaleModContainer/ScaleModInput" method="_on_text_submitted"]
+[connection signal="value_changed" from="Terrain CanvasLayer/MarginContainer/GridContainer/ChunkDistContainer/ChunkDistInput" to="Terrain CanvasLayer/MarginContainer/GridContainer/ChunkDistContainer/ChunkDistInput" method="_on_value_changed"]
+[connection signal="value_changed" from="Terrain CanvasLayer/MarginContainer/GridContainer/PeakDensityContainer/PeakDensityInput" to="Terrain CanvasLayer/MarginContainer/GridContainer/PeakDensityContainer/PeakDensityInput" method="_on_value_changed"]
+[connection signal="value_changed" from="Terrain CanvasLayer/MarginContainer/GridContainer/PeakScaleContainer/PeakScaleInput" to="Terrain CanvasLayer/MarginContainer/GridContainer/PeakScaleContainer/PeakScaleInput" method="_on_value_changed"]
+[connection signal="text_submitted" from="Terrain CanvasLayer/MarginContainer/GridContainer/RidgeHeightContainer/RidgeHeightInput" to="Terrain CanvasLayer/MarginContainer/GridContainer/RidgeHeightContainer/RidgeHeightInput" method="_on_text_submitted"]
+[connection signal="text_submitted" from="Terrain CanvasLayer/MarginContainer/GridContainer/RidgeDistContainer/RidgeDistInput" to="Terrain CanvasLayer/MarginContainer/GridContainer/RidgeDistContainer/RidgeDistInput" method="_on_text_submitted"]
+[connection signal="text_submitted" from="Terrain CanvasLayer/MarginContainer/GridContainer/RidgeWidthContainer/RidgeWidthInput" to="Terrain CanvasLayer/MarginContainer/GridContainer/RidgeWidthContainer/RidgeWidthInput" method="_on_text_submitted"]
+[connection signal="pressed" from="Terrain CanvasLayer/MarginContainer/GridContainer/Flying Button" to="." method="_on_flying_button_pressed"]
+[connection signal="pressed" from="Terrain CanvasLayer/MarginContainer/GridContainer/Reset Button" to="." method="_on_reset_button_pressed"]
+[connection signal="pressed" from="Terrain CanvasLayer/MarginContainer/GridContainer/Origin Button" to="." method="_on_origin_button_pressed"]

@@ -37,10 +37,20 @@ var making = false
 
 signal terrain_made
 signal check_position
+signal init_globals(init_vars)
 
 func _ready():
 	
-	pass 
+	Globals.mesh_size = (mesh_size)
+	Globals.scale_modifier = (scale_modifier)
+	Globals.chunk_distance = (chunk_distance)
+	Globals.peak_density = (peak_density)
+	Globals.peak_scale = (peak_scale)
+	Globals.ridge_height = (ridge_height)
+	Globals.ridge_distance = (ridge_distance)
+	Globals.ridge_width = (ridge_width)
+	
+
 	
 func _process(delta):
 	

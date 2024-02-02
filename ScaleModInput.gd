@@ -1,5 +1,7 @@
 extends LineEdit
 
+func _ready():
+	text = str(Globals.scale_modifier)
 
 func _on_text_submitted(new_text):
 	release_focus()
