@@ -10,13 +10,9 @@ export_presets.cfg
 .mono/
 data_*/
 
-/.godot/
-/assets/
+/assets/panorama/industrial_sunset_puresky_4k.exr
+/assets/textures/
+/.godot/shader_cache/
+/.godot/imported/
 
-/gems.jpg
-/gems.jpg.import
-/icon.svg
-/icon.svg.import
-/industrial_sunset_puresky_4k.exr
-/industrial_sunset_puresky_4k.exr.import
 

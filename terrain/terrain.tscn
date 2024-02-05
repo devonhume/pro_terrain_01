@@ -19,7 +19,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.000488281, 1.00002, 0.00925
 shape = SubResource("BoxShape3D_1dm3o")
 
 [node name="Timer" type="Timer" parent="."]
-wait_time = 0.1
+wait_time = 0.25
 autostart = true
 
 [connection signal="ready" from="Hex_Array" to="." method="_on_hex_array_ready"]

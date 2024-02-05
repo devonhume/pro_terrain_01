@@ -1,0 +1,14 @@
+[gd_resource type="StandardMaterial3D" load_steps=5 format=3 uid="uid://dis35nwn1fk0i"]
+
+[ext_resource type="Texture2D" uid="uid://cna3d4w3pdblt" path="res://assets/textures/aerial_beach_02_4k/textures/aerial_beach_02_diff_4k.png" id="1_vktv1"]
+[ext_resource type="Texture2D" uid="uid://dyjx5palii3bc" path="res://assets/textures/aerial_beach_02_4k/textures/aerial_beach_02_ao_4k.png" id="2_xqu0k"]
+[ext_resource type="Texture2D" uid="uid://d3408edjevvvl" path="res://assets/textures/aerial_beach_02_4k/textures/aerial_beach_02_nor_gl_4k.png" id="3_ai6o0"]
+[ext_resource type="Texture2D" uid="uid://bc3ip5ac2ob8f" path="res://assets/textures/aerial_beach_02_4k/textures/aerial_beach_02_rough_4k.png" id="4_pretr"]
+
+[resource]
+albedo_texture = ExtResource("1_vktv1")
+roughness_texture = ExtResource("4_pretr")
+normal_enabled = true
+normal_texture = ExtResource("3_ai6o0")
+ao_enabled = true
+ao_texture = ExtResource("2_xqu0k")

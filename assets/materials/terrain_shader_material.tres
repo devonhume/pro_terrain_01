@@ -1,0 +1,18 @@
+[gd_resource type="ShaderMaterial" load_steps=5 format=3 uid="uid://cugyh3qaucdxm"]
+
+[ext_resource type="Shader" path="res://assets/materials/terrain_shader.gdshader" id="1_65l1x"]
+[ext_resource type="Texture2D" uid="uid://dbn7a167js02j" path="res://assets/textures/rock_08_4k/textures/rock_08_diff_4k.png" id="2_4c5bc"]
+[ext_resource type="Texture2D" uid="uid://dpmh53sophpi1" path="res://assets/textures/forest_leaves_02_4k/forest_leaves_02_diffuse_4k.png" id="2_n85n8"]
+[ext_resource type="Texture2D" uid="uid://cna3d4w3pdblt" path="res://assets/textures/aerial_beach_02_4k/textures/aerial_beach_02_diff_4k.png" id="4_yar7o"]
+
+[resource]
+render_priority = 0
+shader = ExtResource("1_65l1x")
+shader_parameter/min_rock_slope = 0.17
+shader_parameter/max_grass_slope = 0.23
+shader_parameter/min_rockgrass_height = 0.75
+shader_parameter/max_sand_height = 1.1
+shader_parameter/uv_multiplier = 0.05
+shader_parameter/grass_texture = ExtResource("2_4c5bc")
+shader_parameter/rock_texture = ExtResource("2_n85n8")
+shader_parameter/sand_texture = ExtResource("4_yar7o")

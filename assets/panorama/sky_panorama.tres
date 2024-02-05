@@ -1,0 +1,6 @@
+[gd_resource type="PanoramaSkyMaterial" load_steps=2 format=3 uid="uid://jrqg4klf3dht"]
+
+[ext_resource type="Texture2D" uid="uid://tk2qc03103ui" path="res://assets/panorama/industrial_sunset_puresky_4k.exr" id="1_em824"]
+
+[resource]
+panorama = ExtResource("1_em824")

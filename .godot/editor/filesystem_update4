@@ -1,0 +1,13 @@
+res://terrain_test/terrain_test.tscn
+res://assets/materials/gems.tres
+res://assets/materials/gray.tres
+res://assets/materials/blue.tres
+res://assets/materials/dirt.tres
+res://assets/materials/terrain_shader.gdshader
+res://terrain/terrain.gd
+res://terrain_test/pointer.tscn
+res://terrain_test/player.tscn
+res://terrain/terrain.tscn
+res://terrain/hex_array.tscn
+res://terrain/hex_array.gd
+res://assets/materials/terrain_shader_material.tres
