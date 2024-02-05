@@ -11,6 +11,7 @@ extends MeshInstance3D
 
 var ground_mat = preload("res://assets/materials/forest_floor.tres")
 var dirt_mat = preload("res://assets/materials/dirt.tres")
+var terrain_mat = preload("res://assets/materials/terrain_shader_material.tres")
 
 var vert_list = []
 
@@ -41,7 +42,7 @@ func make_mesh(chunk, edges, peak_density, peak_modifier, terrain_map):
 	
 	arr_mesh.add_surface_from_arrays(Mesh.PRIMITIVE_TRIANGLES, surface_array)
 	
-	arr_mesh.surface_set_material(0, dirt_mat)
+	arr_mesh.surface_set_material(0, terrain_mat)
 	
 	shape_signal.emit(arr_mesh, offset, hex_array[1])
 	

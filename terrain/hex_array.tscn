@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://dbm7egmt7yrhr"]
 
-[ext_resource type="Script" path="res://hex_array.gd" id="1_mnin3"]
+[ext_resource type="Script" path="res://terrain/hex_array.gd" id="1_mnin3"]
 
 [sub_resource type="ArrayMesh" id="ArrayMesh_lbp21"]
 

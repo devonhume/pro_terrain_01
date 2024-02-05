@@ -1,6 +1,6 @@
 extends StaticBody3D
 
-var TerrainMap = load("res://terrain_map.gd")
+var TerrainMap = load("res://terrain/terrain_map.gd")
 
 @onready var hex_array = get_node("Hex_Array")
 
@@ -149,7 +149,6 @@ func make_z_offset(size, mesh_scale):
 	return snapped(Z_INC * (size + z_mod), 0.001)
 
 func _on_timer_timeout():
-	
 	if not reset_mode:
 		check_position.emit()
 	

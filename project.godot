@@ -11,13 +11,13 @@ config_version=5
 [application]
 
 config/name="pro_terrain_01"
-run/main_scene="res://terrain_test.tscn"
+run/main_scene="res://terrain_test/terrain_test.tscn"
 config/features=PackedStringArray("4.1", "Forward Plus")
 config/icon="res://icon.svg"
 
 [autoload]
 
-Globals="*res://globals.gd"
+Globals="*res://terrain_test/globals.gd"
 
 [dotnet]
 
