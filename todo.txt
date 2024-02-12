@@ -1,32 +1,98 @@
 To-Do:
 
 Pipeline Rewrite:
+	
+-	New Node Types
+	-	Terrain Feature
+		-	Mountains
+		-	Depressions
+		-	Coastline
+	-	Biome
+		-	
 
 -	Reorganize into pipeline 
+
+	-	Each Landscape Feature as a Node
+	-	Code iterates through a list of Features and adds them
+	-	'Make Mountains' as a 'Roughness' Node
+
 -	Structured vertex list
 -	Gui map features as individual objects added to pipeline 
+
+	-	pipeline as expandable scrollable list
+	-	each pops up exposing parameters
+	-	add new landforms menu
+
 -	Use seed for random generator
+	-	Master Seed parameter on Terrain Generator node
+	-	Each feature has the option to us it's own seed or the master seed
+	
 -	Savable ‘levels’ that can be called into an existing game
 -	Two modes -
 		1. gross generation - new seed, regens all features
 		2. Fine generation - uses saved seed, changes / adds details
 
 Landscape Features:
+	
+-	Each node should accept a biome node
+- 	Pathing for Ranges, Canyons, Roads, Rivers
 
+-	Terrain Path
+	-	start point and end point
+	-	optional between points
+	-	depth, width, and path-deviation variance
+	- 	scatters feature points along path
+	-	option to follow existing 
+	
+
+-	Mountains/hills
+	-	Single mountain 
+	-	Range shapes, extents
+	-	Range uses Terrain Path to make line of single mountains
+	-	Craters:
+		- change to create single mountains in ring
+		- multiple origins to surround
+
+- 	Depressions
+	-	Lakes/ponds
+		- Fill level
+	-	Rivers/streams:
+		- Option to "flow downstream"
+		- Auto Waterfall Option
+		- Flowrate Slider
+		- Auto pond/lake
+		- Detects when it hits existing water body
+
+-	Coastline
+	-	Land limits 
+	-	Beach Frequency
+	
 -	Roads 
--	Single mountain 
--	Range shapes, extents
--	Land limits 
--	Feature linking 
+	-	Have a road texture
+	-	uses Terrain Path
+	-	Find "passes" in mountains
+	-	Threshold to create ramps or switchbacks
+	
+-	Caves / dungeons 
+	-	This is going to be a whole-ass thing
+	
+-	Flat areas / clearings 
+	-	Height to make plateaus
+	-	Make Additive to smooth
+	- 	Slope
+	
+-	Feature linking
+	-	Boolean Operations
+		- Additive: Highest
+		- Subtractive: Lowest
+		- Average: Average of all values
+		- Overwrite: Current Value
+	
 -	Waterfalls 
 -	Clouds
--	Flat areas / clearings 
--	Lakes/ponds
--	Rivers/streams
--	Coastline 
--	Caves / dungeons 
 -	Buildings? 
 -	Irregular shapes
+	- slider for irregularity
 -	Better bumps
 -	Procedural trees
 
@@ -34,24 +100,58 @@ Shaders / rendering:
 
 -	Texture mapping to angles/objects 
 
-	So texture mapping different textures onto the same mesh should happen in the shaders -
-	In the vertex shader, you can set the transparency by height. Each VERTEX is a "pixel" drawn on the mesh
-	If you want to map by triangle, you can send an array of just the triangles you want mapped to the shader (I think)
-	You should be able to map by slope by converting the normal?
+	- Implemented shader from YouTube tutorial
+		- Mapping by height IS working
+		- Mapping by face slope needs fixing - is currently acting like mapping by height
 	
 -	Foliage shader
 -	Biomes
+	-	Biomes should be individual nodes that have their own shaders
+	-	Includes a vegetation generator
 -	Line-of-sight generation
 -	Visibility by viewport 
 -	Distance simplification 
 -	Distance fog
 
+Assets:
+	
+-	Terrain Asset
+	-	holds an asset and places at locatio
+	-	should have y value relative to ground
+	- 	should adjust y value to ground changes
+
+-	Asset Spawners
+	-	inherits Terrain Asset
+	- 	has default/changeable mesh, optional
+	- 	contains asset to spawn
+	-	define spawn trigger
+	
+-	Player Spawner
+	-	like Asset Spawner but starts player at or teleports player to spawner location
+	-	should add functionality to teleport character to a different spawner or a set location
+
 Other Features:
 
--	Spawn point 
 -	Integrate gui with Godot editor
--	Asset spawners
+	- inpector groups
+	
 -	Origin marker 
+
+		* DONE!
+		
 -	Place marker
 
+		* Markers Placed
+		* Buttons added, teleports to marker
+		* Markers and Buttons hide on HideMarkersButton pressed
+		
+		- Click on marker to change Name, Color, Delete
+		
+- 	Implement 3rd Person Testing
+		- Add option for custom char model
+		- Add option for custom physics
+
+Investigate
+	- Nuget Packages?
+	- sparse arrays
 

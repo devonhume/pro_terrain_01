@@ -12,8 +12,8 @@ var blue_mat = preload("res://assets/materials/blue.tres")
 @export var scale_modifier = 1.0
 @export var chunk_distance = 100
 @export var peak_density = 2
-@export var peak_scale = 5
-var peak_modifier = peak_scale * 0.1
+@export var peak_scale = 20
+var peak_modifier = peak_scale * 0.01
 
 @export var ridge_height:float = 20.0
 @export var ridge_distance:float = 100.0

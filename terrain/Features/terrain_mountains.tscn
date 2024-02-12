@@ -1,0 +1,10 @@
+[gd_scene load_steps=3 format=3 uid="uid://b6jfhjoinp2tk"]
+
+[ext_resource type="Script" path="res://terrain/Features/TerrainMountains.gd" id="1_4bcjw"]
+[ext_resource type="Script" path="res://terrain/Features/TerrainMountain.gd" id="2_wnnin"]
+
+[node name="TerrainMountains" type="Node3D"]
+script = ExtResource("1_4bcjw")
+
+[node name="TerrainMountain" type="Node3D" parent="."]
+script = ExtResource("2_wnnin")

@@ -1,0 +1,13 @@
+[gd_scene load_steps=3 format=3 uid="uid://c76mvn31sx8ls"]
+
+[ext_resource type="Material" uid="uid://g1sisujwe0g4" path="res://assets/materials/blue.tres" id="1_0q7e0"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_j8kmq"]
+
+[node name="OriginMarker" type="RigidBody3D"]
+transform = Transform3D(0.5, 0, 0, 0, 1, 0, 0, 0, 0.5, 0, 0, 0)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 500, 0, 0, 0, 1, 0, 0, 0)
+mesh = SubResource("BoxMesh_j8kmq")
+surface_material_override/0 = ExtResource("1_0q7e0")

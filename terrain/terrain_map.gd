@@ -1,4 +1,4 @@
-class_name TerrainMap
+extends Node
 
 # variables and constants
 var size
@@ -358,7 +358,7 @@ class TerrainChunk:
 	var edges
 	var status
 	var parent_map
-	var vert_map = VertMap.new(self)
+	var vert_map = OriginalVertMap.new(self)
 	
 	func _init(new_origin, posiiton, parent):
 		origin = new_origin
@@ -384,7 +384,7 @@ class TerrainChunk:
 		
 		return vert_map.get_linked_verts(vert)
 
-class VertMap:
+class OriginalVertMap:
 	
 	var parent_chunk
 	var verts = []

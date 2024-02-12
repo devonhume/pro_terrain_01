@@ -1,0 +1,20 @@
+[gd_scene load_steps=5 format=3 uid="uid://chedfkshhd77b"]
+
+[ext_resource type="Script" path="res://terrain/terrain_generator.gd" id="1_dddy2"]
+[ext_resource type="Script" path="res://terrain/TerrainMap.gd" id="2_ml6pm"]
+[ext_resource type="Script" path="res://terrain/chunk_mesh_generator.gd" id="3_eylco"]
+[ext_resource type="Script" path="res://terrain/terrain_gen_globals.gd" id="4_8vyud"]
+
+[node name="terrain_generator" type="Node3D"]
+script = ExtResource("1_dddy2")
+
+[node name="TerrainMap" type="Node" parent="."]
+script = ExtResource("2_ml6pm")
+
+[node name="ChunkMeshGenerator" type="Node" parent="."]
+script = ExtResource("3_eylco")
+
+[node name="TerrainGenGlobals" type="Node" parent="."]
+script = ExtResource("4_8vyud")
+
+[connection signal="shape_signal" from="ChunkMeshGenerator" to="." method="_on_chunk_mesh_generator_shape_signal"]

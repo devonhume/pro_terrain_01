@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://dt5awqce381i"]
+
+[ext_resource type="Script" path="res://terrain/Assets/terrain_asset_placer.gd" id="1_qxsar"]
+
+[node name="terrain_asset_placer" type="Node3D"]
+script = ExtResource("1_qxsar")

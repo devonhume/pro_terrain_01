@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://rvysc24yc1nk"]
+
+[ext_resource type="Script" path="res://terrain/Features/TerrainFeature.gd" id="1_fqmcc"]
+
+[node name="TerrainFeature" type="Node3D"]
+script = ExtResource("1_fqmcc")

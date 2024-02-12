@@ -1,0 +1,2 @@
+extends TerrainAsset
+class_name TerrainAssetSpawner

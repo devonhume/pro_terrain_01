@@ -1,0 +1,10 @@
+[gd_scene load_steps=2 format=3 uid="uid://byk38fgv71464"]
+
+[ext_resource type="Script" path="res://gui/MarkerButton.gd" id="1_n4fkt"]
+
+[node name="Button" type="Button"]
+offset_right = 8.0
+offset_bottom = 8.0
+script = ExtResource("1_n4fkt")
+
+[connection signal="pressed" from="." to="." method="_on_pressed"]
